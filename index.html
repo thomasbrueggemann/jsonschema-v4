@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JSON Schema v4-draft Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                JSON Schema v4-draft Generator
+            </h1>
+            <p class="subtitle">
+                Paste your JSON document in the following text area and generate a JSON-Schema v4-draft compatiable schema.
+            </p>
+        </div>
+    </section>
+    <section class="section" style="padding-top:10px">
+        <div class="container has-text-centered">
+            <textarea class="textarea" placeholder="Paste your JSON here" id="origin" rows="10"></textarea>
+
+            <a class="button is-primary is-medium" style="margin-top:20px;" onclick="generateSchema()">Generate</a>
+        </div>
+    </section>
+    <section class="section" style="padding-top:10px; display:none;" id="resultSection">
+        <div class="container">
+            <h2 class="title">
+                Result
+            </h2>
+            <textarea class="textarea" id="result" rows="20" readonly></textarea>
+        </div>
+    </section>
+
+    <script src="jsg-browser.min.js"></script>
+    <script>
+        function generateSchema() {
+            try {
+                var input = JSON.parse(document.getElementById("origin").value)
+                var schema = jsonSchemaGenerator(input);
+                document.getElementById("result").value = JSON.stringify(schema, null, 4);
+                document.getElementById("resultSection").style.display = "block";
+            } catch (e) { alert(e); }
+        }
+    </script>
+</body>
+
+</html>
